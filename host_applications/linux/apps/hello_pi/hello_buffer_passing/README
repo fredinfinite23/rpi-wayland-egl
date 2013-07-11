@@ -1,0 +1,25 @@
+Buffer passing Proof-of-concept
++++++++++++++++++++++++++++++++
+
+This is a tiny app demonstrating inter-process VC buffer passing cability/sanity
+
+To show proper functionality, the following controlFlow is used :
+
+parent process (transmitter)
+----------------------------
+ 1- Create a pipe for inter-process communication
+ 2- Create the receiver process
+ 3- Create the buffer to pass over using vc_dispmanx_resource_create
+ 4- Fill the buffer up with random values
+ 5- Compute buffer checksum (CRC) and print it out on stdout
+ 6- pass buffer handle over to child process
+
+child process (receiver)
+------------------------
+ 7- Wait for the piped handle from parent
+ 8- retrieve dispman buffer image pointer via passed-in handle
+ 9- Compute buffer checksum (CRC) and print it out on stdout
+
+
+Buffer was correctly accessed from the child if the two
+printed out checksums are identical.
